@@ -12,5 +12,4 @@ import java.util.List;
 public interface TeamJpaRepository extends JpaRepository<Team, Long> {
     Team findById(Long id);
     List<Team> findByName(String name);
-    Team findByPlayerId(Long playerId);
 }

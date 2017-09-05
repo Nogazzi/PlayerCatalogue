@@ -17,7 +17,7 @@ public class Team {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "players")
+    @OneToMany(targetEntity = Player.class, mappedBy = "team")
     private Set<Player> players;
 
     public Team(){
@@ -73,6 +73,6 @@ public class Team {
     @Override
     public String toString() {
         return "Team[name: " + name +
-                "players: " + players;
+                " players: " + players;
     }
 }
