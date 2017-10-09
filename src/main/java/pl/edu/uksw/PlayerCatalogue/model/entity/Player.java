@@ -29,9 +29,8 @@ public class Player {
     @Column(name = "nationality")
     private String nationality;
 
-    @ManyToOne
-    @JoinColumn(name = "team_id", nullable = true)
-    private Team team;
+    @Column(name = "team", nullable = true)
+    private String team;
 
     @Column(name = "email")
     private String email;
@@ -40,7 +39,7 @@ public class Player {
 
     }
 
-    public Player(String name, String surname, Date birthDate, String nationality, Team team, String email) {
+    public Player(String name, String surname, Date birthDate, String nationality, String team, String email) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -90,11 +89,11 @@ public class Player {
         this.nationality = nationality;
     }
 
-    public Team getTeam() {
+    public String getTeam() {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(String team) {
         this.team = team;
     }
 
@@ -112,7 +111,7 @@ public class Player {
                 ", surname: " + surname +
                 ", birthDate: " + birthDate +
                 ", nationality: " + nationality +
-                ", team: " + team.getName() +
+                ", team: " + team +
                 ", email: " + email;
     }
 }

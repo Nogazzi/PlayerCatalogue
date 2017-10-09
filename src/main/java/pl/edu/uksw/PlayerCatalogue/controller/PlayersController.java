@@ -42,16 +42,31 @@ public class PlayersController {
     @GetMapping(value = "/byteamname")
     public List<Player> findByTeamName(@PathVariable final String teamName) {
         log.info("findByTeamName: " + teamName);
-        return playerJpaRepository.findByTeamName(teamName);
+        return playerJpaRepository.findByTeam(teamName);
     }
 
     @RequestMapping(value = "/registerplayer", method = RequestMethod.POST)
     ResponseEntity<String> registerNewEvent(@RequestBody Player input) {
         log.info("Sent player details" + input);
-        if (playerJpaRepository.findByEmail(input.getEmail()) != null){
-            playerJpaRepository.save(input);
+        log.info("Sent player details. Name: " + input.getName()
+                + ", Surname: " + input.getSurname()
+                + ", birthdate: " + input.getBirthDate()
+                + ", nationality: " + input.getNationality()
+                + ", team: " + input.getTeam()
+                + ", email: " + input.getEmail());
+        log.info("Find by email result: " + playerJpaRepository.findByEmail(input.getEmail()));
+        if (playerJpaRepository.findByEmail(input.getEmail()) == null){
 
-            return ResponseEntity.ok("Event " + input.toString() + " added succefully.");
+            Player newPlayer = new Player(
+                    input.getName(),
+                    input.getSurname(),
+                    input.getBirthDate(),
+                    input.getNationality(),
+                    input.getTeam(),
+                    input.getEmail());
+            playerJpaRepository.save(newPlayer);
+
+            return ResponseEntity.ok("Event " + newPlayer.toString() + " added succefully.");
         }
         return ResponseEntity.ok("Passed email " + input.getEmail() + " is used");
     }

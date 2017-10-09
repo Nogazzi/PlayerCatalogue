@@ -1,6 +1,7 @@
 package pl.edu.uksw.PlayerCatalogue.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,7 +10,7 @@ import java.util.TreeSet;
  */
 @Entity
 @Table(name = "team")
-public class Team {
+public class Team implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -17,21 +18,25 @@ public class Team {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = Player.class, mappedBy = "team")
+    /*@OneToMany(targetEntity = Player.class, mappedBy = "team")
     private Set<Player> players;
-
+*/
     public Team(){
 
     }
 
     public Team(final String name) {
         this.name = name;
-        this.players = new TreeSet<>();
+        //this.players = new TreeSet<>();
     }
 
     public Team(final String name, final Set<Player> players) {
         this.name = name;
-        this.players = players;
+        //this.players = players;
+    }
+
+    public Team(TeamDAO teamDAO){
+        this.name = teamDAO.getName();
     }
 
     public long getId() {
@@ -50,7 +55,7 @@ public class Team {
         this.name = name;
     }
 
-    public Set<Player> getPlayers() {
+    /*public Set<Player> getPlayers() {
         return players;
     }
 
@@ -69,10 +74,10 @@ public class Team {
     public int getTeamSize(){
         return players.size();
     }
-
+*/
     @Override
     public String toString() {
-        return "Team[name: " + name +
-                " players: " + players;
+        return "Team[name: " + name /*+
+                " players: " + players*/;
     }
 }
